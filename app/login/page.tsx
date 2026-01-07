@@ -36,7 +36,9 @@ export default function LoginPage() {
         <h2 className="text-2xl font-bold">Login</h2>
 
         <input
+          name="email"
           type="email"
+          aria-label="Email"
           placeholder="Email"
           className="w-full border p-2 rounded"
           value={email}
@@ -44,7 +46,9 @@ export default function LoginPage() {
         />
 
         <input
+          name="password"
           type="password"
+          aria-label="Password"
           placeholder="Password"
           className="w-full border p-2 rounded"
           value={password}
