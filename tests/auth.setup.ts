@@ -5,8 +5,8 @@ const authFile = 'playwright/.auth/user.json';
 setup('auth via UI and save storage', async ({ page }) => {
   await page.goto('/login');
 
-  await page.getByPlaceholder('Email').fill(process.env.E2E_EMAIL ?? 'test@mail.com');
-  await page.getByPlaceholder('Password').fill(process.env.E2E_PASSWORD ?? 'asd');
+  await page.getByPlaceholder('Email').fill(process.env.EMAIL ?? 'test@mail.com');
+  await page.getByPlaceholder('Password').fill(process.env.PASSWORD ?? 'asd');
 
   await page.getByRole('button', { name: /login/i }).click();
 
