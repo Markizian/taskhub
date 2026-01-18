@@ -1,0 +1,6 @@
+test_ci:
+  tags: [local]
+  script:
+    - echo "CI is working"
+    - whoami
+    - pwd
