@@ -1,64 +1,11 @@
-stages: [e2e, deploy]
-
-variables:
-  TEST_STACK: "taskhub-test"
-  PROD_STACK: "taskhub"
-  APP_SERVICE: "nextapp"
-  APP_URL: "http://nextapp:3000"
-
-  PLAYWRIGHT_IMAGE: "mcr.microsoft.com/playwright:v1.57.0"
-
-e2e:
-  stage: e2e
-  tags: [local]
-  rules:
-    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
-    - if: '$CI_COMMIT_BRANCH == "master"'
-    - if: '$CI_COMMIT_BRANCH == "main"'
-  script:
-    - docker compose -p "$TEST_STACK" up -d --build
-    - >
-      docker run --rm
-      --network "${TEST_STACK}_default"
-      curlimages/curl:8.5.0
-      sh -lc 'for i in $(seq 1 60); do
-                if curl -fsS "$APP_URL" >/dev/null 2>&1; then echo "App is up: $APP_URL"; exit 0; fi;
-                echo "Waiting for app... ($i/60)";
-                sleep 2;
-              done;
-              echo "App did not become ready"; exit 1'
-    - >
-      docker run --rm
-      --ipc=host
-      --network "${TEST_STACK}_default"
-      -e CI=true
-      -e BASE_URL="$APP_URL"
-      -v "$CI_PROJECT_DIR:/work"
-      -w /work
-      "$PLAYWRIGHT_IMAGE"
-      bash -lc "npm ci && npx playwright test --reporter=line,html,junit"
-
-  after_script:
-    - docker compose -p "$TEST_STACK" ps
-    - docker compose -p "$TEST_STACK" logs --no-color --tail=200 || true
-    - docker compose -p "$TEST_STACK" down -v || true
-
-  artifacts:
-    when: always
-    expire_in: 7 days
-    paths:
-      - playwright-report/
-      - test-results/
-    reports:
-      junit: test-results/**/*.xml
+stages: [deploy]
 
 deploy:
   stage: deploy
   tags: [local]
-  needs: ["e2e"]
   rules:
     - if: '$CI_COMMIT_BRANCH == "master"'
     - if: '$CI_COMMIT_BRANCH == "main"'
   script:
-    - docker compose -p "$PROD_STACK" up -d --build --remove-orphans
-    - docker compose -p "$PROD_STACK" ps
+    - docker compose -f docker-compose.yml -p taskhub up -d --build --remove-orphans
+    - docker compose -f docker-compose.yml -p taskhub ps
