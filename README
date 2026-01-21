@@ -22,6 +22,16 @@ The project is designed as a full-stack Next.js application with API routes, aut
 - ESLint
 - Playwright
 
+## Environmental variables
+
+MONGO_INITDB_ROOT_USERNAME
+MONGO_INITDB_ROOT_PASSWORD
+NODE_ENV
+MONGODB_URI
+NEXTAUTH_SECRET
+NEXTAUTH_URL
+AUTH_SECRET
+
 ## Running the Application
 
 npm run dev
