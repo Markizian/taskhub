@@ -1,47 +1,40 @@
 # TaskHub
+    TaskHub is a small task management app built with Next.js.
 
-TaskHub is a task management application built with Next.js.
+# Overview
+    TaskHub allows authenticated users to organize work using boards and tasks.  
+    Each board contains a list of tasks that can be created, deleted, and marked as completed.
 
-## Overview
+    The is a Next.js pet project with API routes, authentication, css with Tailwind, MongoDB database and testing with Playwright.
 
-TaskHub allows authenticated users to organize work using boards and tasks.  
-Each board contains a list of tasks that can be created, deleted, and marked as completed.
+# Technology Stack
+    Next.js 16
+    React 19
+    TypeScript
+    NextAuth
+    MongoDB
+    Mongoose
+    bcryptjs
+    Tailwind CSS
+    ESLint
+    Playwright
 
-The project is designed as a full-stack Next.js application with API routes, authentication, css with Tailwind, MongoDB database and testing with Playwright.
+# Environmental variables
+    MONGO_INITDB_ROOT_USERNAME
+    MONGO_INITDB_ROOT_PASSWORD
+    NODE_ENV
+    MONGODB_URI
+    NEXTAUTH_SECRET
+    NEXTAUTH_URL
+    AUTH_SECRET
 
-## Technology Stack
+# Running the Application
+    npm run dev
+    The application will be available at: http://localhost:3000
 
-- Next.js 16
-- React 19
-- TypeScript
-- NextAuth
-- MongoDB
-- Mongoose
-- bcryptjs
-- Tailwind CSS
-- ESLint
-- Playwright
-
-## Environmental variables
-
-MONGO_INITDB_ROOT_USERNAME
-MONGO_INITDB_ROOT_PASSWORD
-NODE_ENV
-MONGODB_URI
-NEXTAUTH_SECRET
-NEXTAUTH_URL
-AUTH_SECRET
-
-## Running the Application
-
-npm run dev
-
-The application will be available at: http://localhost:3000
-
-### Testing
-
-To run test create test user:
-    test@mail.com
-    asd
-then
-npx playwright test
+# Testing
+    To run test create test user:
+        test@mail.com
+        asd
+    then
+    npx playwright test
